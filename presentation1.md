@@ -17,3 +17,5 @@ Using a slightly looser interpretation of the term Finite State Machine, it can 
 The data isn't explicit, like storing numbers in a linked list, but rather implicit in the behaviors and events that dictate the state transitions.
 
 ## In my blog
+
+Very similar to the AI system described above, my blog deals with various different states, and has to deal with how and when to move from one to the other, while loading and unloading all the data and text that goes along with a blog.
