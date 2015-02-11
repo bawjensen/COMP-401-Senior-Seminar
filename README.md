@@ -1,2 +1,3 @@
 # comp401
-Wheaton College (MA)'s course of COMP-401: Senior Seminar.
+
+This repo will contain (or contains) all of my work for the Senior Seminar capstone course at Wheaton. 
