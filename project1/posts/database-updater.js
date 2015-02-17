@@ -3,8 +3,10 @@ var Firebase    = require('firebase'),
     marked      = require('marked'),
     path        = require('path');
 
+// Connect to database
 var fb = new Firebase("https://personal-blog.firebaseio.com");
 
+// Configure the markdown converter
 marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
@@ -16,36 +18,43 @@ marked.setOptions({
     smartypants: false
 });
 
-initialDir = '.';
+var initialDir = '.';
 
+// Read the contents of the enclosing directory
 fs.readdir(initialDir, function(err, subDirectories) {
     if (err) throw err;
 
-    for (var i in subDirectories) {
+    // Iterate over the (potential) directories in the enclosing dir
+    subDirectories.forEach(function(topicSubDir) {
         var topicSubDir = subDirectories[i];
 
+        // Fetch stats for potential dir
         fs.stat(topicSubDir, (function(topicSubDir, err, stats) {
             if (err) throw err;
 
+            // Check if potential dir is a dir and not a file
             if (stats.isDirectory()) {
                 var newDir = path.join(initialDir, topicSubDir);
 
+                // Read its contents
                 fs.readdir(newDir, function(err, files) {
-                    for (var i in files) {
-                        var file = files[i];
+
+                    // For every post in a topic
+                    files.forEach(function(file) {
                         var fileExt = path.extname(file);
                         var fileBase = path.basename(file, fileExt);
-
-                        console.log(path.join(newDir, file));
 
                         if (fileExt === '.md') {
                             fs.readFile(path.join(newDir, file), 'utf8', function(err, mdFile) {
                                 if (err) throw err;
 
+                                // Convert the markdown to html
                                 var html = marked(mdFile);
 
-                                var topic = fb.child('topics').child(topicSubDir)
+                                // Find the correct field in database
+                                var topic = fb.child('topics').child(topicSubDir);
 
+                                // Add the html
                                 topic.child('posts').child(fileBase).set({
                                     title: fileBase,
                                     text: html,
@@ -54,11 +63,11 @@ fs.readdir(initialDir, function(err, subDirectories) {
                             });
                         }
                         else {
-                            console.log('Nope');
+                            console.log('File wasn\'t markdown');
                         }
-                    }
+                    })
                 });
             }
-        }).bind(null, topicSubDir));
-    }
+        }).bind(null, topicSubDir)); // Creating a closure for the callback
+    });
 });
