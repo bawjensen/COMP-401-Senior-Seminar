@@ -1,4 +1,4 @@
-# The Singularity
+# The Singularity and Superintelligence
 
 First off, the term *singularity* refers to a "asymptote-like situation where normal rules no longer apply." It is a term that has been defined and redefined too many times to make sense anymore, but I'll use it in this talk just to give a name to the central concept. In the real world, where the experts in artificial intelligence sit in shady, dimly lit back rooms discussing our future and just how quickly the world is going to hell, they've stopped using this term because they can't agree on what it means.
 
