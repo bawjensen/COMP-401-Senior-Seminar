@@ -18,3 +18,4 @@ waitbutwhy's The Road to Superintelligence:
 
 + [Article specifically defining "tests" for AGI](https://intelligence.org/2013/08/11/what-is-agi/) (ala the "Turing Test")
 + [Limitations of Moore's Law](http://en.wikipedia.org/wiki/Moore%27s_law#Consequences_and_limitations)
++ [Estimations of AI creation taking into account Moore's Law](https://intelligence.org/2013/05/15/when-will-ai-be-created/)
