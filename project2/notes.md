@@ -9,6 +9,7 @@
 + Trusting in Moore's Law, or something, to advance computing power towards AGI(???)
 
 + https://intelligence.org/2013/05/15/when-will-ai-be-created/ AI without relying on Moore's Law
+    * Moore's law has seen hurdles before
     * "depletion of low hanging fruit"
     * Possible "space race"-esque moment
 
@@ -56,4 +57,6 @@
         - Without exponential growth in computing power, do we still have AGI?
             + That's not something I can know
                 * Experts may not even know
-    * 
++ Moore's Law
+    * Number of transistors on a chip doubles every 24 months
+        - Number of 
