@@ -1,0 +1,13 @@
+#include <iostream>
+
+#include "../headers/Node.h"
+
+using namespace std;
+
+Node::Node() {
+    cout << "Creating a node" << endl;
+}
+
+bool Node::operator<(const Node& rhs) const {
+    return false;
+}
