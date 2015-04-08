@@ -40,7 +40,13 @@ void search(Graph g, Node* source) {
             int w = neighbors[i].first;
             Node* v = neighbors[i].second;
 
-            int alt = distMap[v] + w;
+            int alt = distMap[u] + w;
+
+            if (alt < distMap[v]) {
+                distMap[v] = alt;
+                prevMap[v] = u;
+                minQueue
+            }
         }
     }
 
