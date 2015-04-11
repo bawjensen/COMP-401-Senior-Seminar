@@ -1,23 +1,41 @@
 #include <climits>
 #include <iostream>
 #include <map>
-#include <queue>
 
+#include "../headers/constants.h"
 #include "../headers/dijkstra.h"
 
 using namespace std;
 
+MinQueue reconstructQueue(MinQueue minQueue, Node* element, int newWeight) {
+    cout << "Remaking" << endl;
+    MinQueue newMinQueue;
+
+    while (!minQueue.empty()) {
+        // Node* node = minQueue.top();
+        WeightPair elem = minQueue.top();
+        minQueue.pop();
+
+        if (elem.second == element) {
+            cout << "Yay" << endl;
+            elem.first = newWeight;
+        }
+
+        newMinQueue.push(elem);
+    }
+
+    return newMinQueue;
+}
+
 void search(Graph g, Node* source) {
-    priority_queue<pair<int, Node*>,
-                    vector<pair<int,Node*>>,
-                    greater<pair<int,Node*>>> minQueue;
+    MinQueue minQueue;
 
     // minQueue.push(pair<int, Node*>(0, source));
 
     map<Node*, int> distMap;
     map<Node*, Node*> prevMap;
 
-    vector<Node*> vertices = g.getVertices();
+    vector<Node*> vertices = g.getAllVertices();
     for (int i = 0, l = vertices.size(); i < l; ++i) {
         Node* v = vertices[i];
 
@@ -45,7 +63,7 @@ void search(Graph g, Node* source) {
             if (alt < distMap[v]) {
                 distMap[v] = alt;
                 prevMap[v] = u;
-                minQueue
+                minQueue = reconstructQueue(minQueue, v, alt);
             }
         }
     }

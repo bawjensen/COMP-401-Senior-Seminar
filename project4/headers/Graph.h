@@ -1,15 +1,23 @@
 #pragma once
 
+#include <vector>
+
+#include "constants.h"
 #include "Node.h"
 
 class Graph {
 private:
     Node* source;
-    std::vector<Node*> vertices;
 
 public:
     Graph();
 
     Node* getSource() { return this->source; };
-    std::vector<Node*> getVertices() { return this->vertices; };
+
+    void setSource(Node* source) { this->source = source; };
+
+    bool contains(std::vector<Node*> nodes, Node* node);
+
+    void recursiveFindVertices(std::vector<Node*> vector, Node* curr);
+    std::vector<Node*> getAllVertices();
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "../headers/constants.h"
 #include "../headers/Node.h"
 
 using namespace std;
