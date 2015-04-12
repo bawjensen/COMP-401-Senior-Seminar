@@ -19,11 +19,8 @@ bool Graph::contains(vector<Node*> nodes, Node* node) {
     return false;
 }
 
-void Graph::recursiveFindVertices(vector<Node*> nodes, Node* curr) {
-    cout << "At: " << curr << endl;;
+void Graph::recursiveFindVertices(vector<Node*>& nodes, Node* curr) {
     vector<WeightPair> neighbors = curr->getNeighbors();
-
-    cout << "Has " << neighbors.size() << " neighbors" << endl;
 
     for (vector<WeightPair>::iterator it = neighbors.begin(); it != neighbors.end(); ++it) {
         Node* ptr = (*it).second;

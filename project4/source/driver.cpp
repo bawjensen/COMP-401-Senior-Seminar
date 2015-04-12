@@ -9,21 +9,31 @@ using namespace std;
 int main() {
     Graph g;
 
-    Node newNode;
+    Node sourceNode, secondNode, thirdNode/*, fourthNode, fifthNode*/;
+    vector<WeightPair> sourceNeighbors, secondNeighbors/*, thirdNeighbors*/;
 
-    g.setSource(&newNode);
+    g.setSource(&sourceNode);
 
-    vector<WeightPair> neighbors;
-    Node anotherNode;
+    sourceNeighbors.push_back(WeightPair(1, &secondNode));
+    sourceNeighbors.push_back(WeightPair(1, &thirdNode));
 
-    neighbors.push_back(WeightPair(1, &anotherNode));
+    secondNeighbors.push_back(WeightPair(1, &thirdNode));
 
-    g.getSource()->setNeighbors(neighbors);
+    sourceNode.setNeighbors(sourceNeighbors);
+    secondNode.setNeighbors(secondNeighbors);
 
-    cout << g.contains(g.getAllVertices(), &anotherNode) << endl;
+    // cout << "Contains: " << endl;
+    // cout << g.contains(g.getAllVertices(), &secondNode) << endl;
 
-    // this->vertices.push_back(this->source);
-    // this->vertices.push_back(new Node());
+    map<Node*, Node*> pathMaps = search(g, g.getSource());
 
-    // search(g, g.getSource());
+    cout << "sourceNode: " << &sourceNode << endl;
+    cout << "secondNode: " << &secondNode << endl;
+    cout << "thirdNode: " << &thirdNode << endl;
+
+    Node* temp = &thirdNode;
+    while (pathMaps.count( temp )) {
+        temp = pathMaps[temp];
+        cout << "temp: " << temp << endl;
+    }
 }

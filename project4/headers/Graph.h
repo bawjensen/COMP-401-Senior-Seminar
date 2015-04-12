@@ -18,6 +18,6 @@ public:
 
     bool contains(std::vector<Node*> nodes, Node* node);
 
-    void recursiveFindVertices(std::vector<Node*> vector, Node* curr);
+    void recursiveFindVertices(std::vector<Node*>& nodes, Node* curr);
     std::vector<Node*> getAllVertices();
 };

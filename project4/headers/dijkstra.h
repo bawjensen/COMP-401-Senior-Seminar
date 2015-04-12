@@ -1,7 +1,9 @@
 #pragma once
 
+#include <map>
+
 #include "constants.h"
 #include "Graph.h"
 #include "Node.h"
 
-void search(Graph g, Node* source);
+std::map<Node*, Node*> search(Graph g, Node* source);

@@ -8,7 +8,6 @@
 using namespace std;
 
 MinQueue reconstructQueue(MinQueue minQueue, Node* element, int newWeight) {
-    cout << "Remaking" << endl;
     MinQueue newMinQueue;
 
     while (!minQueue.empty()) {
@@ -17,7 +16,6 @@ MinQueue reconstructQueue(MinQueue minQueue, Node* element, int newWeight) {
         minQueue.pop();
 
         if (elem.second == element) {
-            cout << "Yay" << endl;
             elem.first = newWeight;
         }
 
@@ -27,7 +25,7 @@ MinQueue reconstructQueue(MinQueue minQueue, Node* element, int newWeight) {
     return newMinQueue;
 }
 
-void search(Graph g, Node* source) {
+map<Node*, Node*> search(Graph g, Node* source) {
     MinQueue minQueue;
 
     // minQueue.push(pair<int, Node*>(0, source));
@@ -40,8 +38,6 @@ void search(Graph g, Node* source) {
         Node* v = vertices[i];
 
         if (v != source) {
-            cout << "Nope" << endl;
-
             distMap[v] = INT_MAX;
             prevMap[v] = NULL;
         }
@@ -67,6 +63,8 @@ void search(Graph g, Node* source) {
             }
         }
     }
+
+    return prevMap;
 
     // while (!minQueue.empty()) {
     //     pair<int, Node*> popped = minQueue.top();
