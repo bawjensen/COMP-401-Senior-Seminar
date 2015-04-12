@@ -15,15 +15,12 @@ int main() {
     g.setSource(&sourceNode);
 
     sourceNeighbors.push_back(WeightPair(1, &secondNode));
-    sourceNeighbors.push_back(WeightPair(1, &thirdNode));
+    sourceNeighbors.push_back(WeightPair(3, &thirdNode));
 
     secondNeighbors.push_back(WeightPair(1, &thirdNode));
 
     sourceNode.setNeighbors(sourceNeighbors);
     secondNode.setNeighbors(secondNeighbors);
-
-    // cout << "Contains: " << endl;
-    // cout << g.contains(g.getAllVertices(), &secondNode) << endl;
 
     map<Node*, Node*> pathMaps = search(g, g.getSource());
 

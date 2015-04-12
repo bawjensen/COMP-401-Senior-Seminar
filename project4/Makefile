@@ -11,7 +11,6 @@ VPATH = $(src_dir):$(h_dir)
 # Names of the libraries
 projs = Graph Node dijkstra
 libs = $(foreach proj,$(projs),$(out_dir)/$(proj).lib)
-# libsf = $(foreach proj,$(projs),$(out_dir)/$(proj)f.lib)
 
 ifeq ($(OS), Darwin) # OSX
 	CLIBS= 		-std=c++11
@@ -27,7 +26,7 @@ $(out_dir)/%.lib: %.cpp %.h
 	@mkdir -p $(out_dir) # "@" prefix silences the command
 	g++ $(CFLAGS) -c $< -o $@
 
-# Compile 2048-trainer
+# Compile complete project with driver
 dijkstra: $(libs) $(src_dir)/driver.cpp
 	g++ $(CFLAGS) $(src_dir)/driver.cpp $(libs) -o $(out_dir)/dijkstra
 

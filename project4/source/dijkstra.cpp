@@ -11,7 +11,6 @@ MinQueue reconstructQueue(MinQueue minQueue, Node* element, int newWeight) {
     MinQueue newMinQueue;
 
     while (!minQueue.empty()) {
-        // Node* node = minQueue.top();
         WeightPair elem = minQueue.top();
         minQueue.pop();
 
@@ -27,8 +26,6 @@ MinQueue reconstructQueue(MinQueue minQueue, Node* element, int newWeight) {
 
 map<Node*, Node*> search(Graph g, Node* source) {
     MinQueue minQueue;
-
-    // minQueue.push(pair<int, Node*>(0, source));
 
     map<Node*, int> distMap;
     map<Node*, Node*> prevMap;
@@ -65,31 +62,4 @@ map<Node*, Node*> search(Graph g, Node* source) {
     }
 
     return prevMap;
-
-    // while (!minQueue.empty()) {
-    //     pair<int, Node*> popped = minQueue.top();
-    //     minQueue.pop();
-    //     cout << "Popped: " << popped.first << endl;
-    // }
-
-// 3      for each vertex v in Graph:           
-// 4          if v ≠ source
-// 5              dist[v] ← infinity            // Unknown distance from source to v
-// 6              prev[v] ← undefined           // Predecessor of v
-// 7          end if
-// 8          Q.add_with_priority(v, dist[v])
-// 9      end for 
-// 10
-// 11     while Q is not empty:               // The main loop
-// 12         u ← Q.extract_min()            // Remove and return best vertex
-// 13         for each neighbor v of u:
-// 14             alt = dist[u] + length(u, v) 
-// 15             if alt < dist[v]
-// 16                 dist[v] ← alt
-// 17                 prev[v] ← u
-// 18                 Q.decrease_priority(v, alt)
-// 19             end if
-// 20         end for
-// 21     end while
-// 21     return prev[]
 }
