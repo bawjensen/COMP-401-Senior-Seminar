@@ -41,31 +41,32 @@ class Line():
 # def calcDiff(point1, point2):
 #     return (point1[0] - point2[0], point1[1] - point2[1])
 
-def saveSVG(size, points, lines):
+def saveSVG(size, lines):
     padding = 10
     offset = padding / 2
 
-    with open('testing.svg', 'w') as outFile:
+    with open('cube_parabola.svg', 'w') as outFile:
         outFile.write('''<svg version="1.1"
-     baseProfile="full"
-     width="''' + str(size + padding) + '''" height="''' + str(size + padding) + '''"
-     xmlns="http://www.w3.org/2000/svg">\n''')
-
-        for point in points:
-            outFile.write('    <circle cx="' + str(point.x + offset) + '" cy="' + str(point.y + offset) + '" r="2" fill="green" />\n')
+            baseProfile="full"
+            width="''' + str(size + padding) + '''" height="''' + str(size + padding) + '''"
+            xmlns="http://www.w3.org/2000/svg">
+            ''')
 
         for line in lines:
-            outFile.write('''    <line x1="''' + str(line.p1.x + offset) + '''" y1="''' + str(line.p1.y + offset) + '''" 
-        x2="''' + str(line.p2.x + offset) + '''" y2="''' + str(line.p2.y + offset) + '''" 
-        stroke="black" 
-        stroke-width="1"/>\n''')
+            outFile.write('''
+                <line
+                    x1="''' + str(line.p1.x + offset) + '''" y1="''' + str(line.p1.y + offset) + '''" 
+                    x2="''' + str(line.p2.x + offset) + '''" y2="''' + str(line.p2.y + offset) + '''" 
+                    stroke="black" 
+                    stroke-width="1"/>
+                ''')
 
         outFile.write('</svg>')
 
 def createSVG():
-    xBound = 500
+    pointsPerLine = 100
+    xBound = 2000
     yBound = xBound
-    pointsPerLine = 25
 
     edgeLength = xBound / 2
     yDiff = edgeLength / 2
@@ -133,7 +134,7 @@ def createSVG():
             )
 
 
-    saveSVG(xBound, points, lines)
+    saveSVG(xBound, lines)
 
 
 createSVG()
