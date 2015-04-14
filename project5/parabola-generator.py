@@ -58,14 +58,14 @@ def saveSVG(size, lines):
                     x1="''' + str(line.p1.x + offset) + '''" y1="''' + str(line.p1.y + offset) + '''" 
                     x2="''' + str(line.p2.x + offset) + '''" y2="''' + str(line.p2.y + offset) + '''" 
                     stroke="black" 
-                    stroke-width="1"/>
+                    stroke-width="0.025"/>
                 ''')
 
         outFile.write('</svg>')
 
 def createSVG():
-    pointsPerLine = 100
-    xBound = 2000
+    pointsPerLine = 1000
+    xBound = 500
     yBound = xBound
 
     edgeLength = xBound / 2
