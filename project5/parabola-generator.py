@@ -57,7 +57,7 @@ def saveSVG(size, lines):
                 <line
                     x1="''' + str(line.p1.x + offset) + '''" y1="''' + str(line.p1.y + offset) + '''" 
                     x2="''' + str(line.p2.x + offset) + '''" y2="''' + str(line.p2.y + offset) + '''" 
-                    stroke="black" 
+                    stroke="purple" 
                     stroke-width="0.025"/>
                 ''')
 
