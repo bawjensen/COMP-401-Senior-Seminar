@@ -35,7 +35,7 @@ products from Adafruit!
 */
 /**************************************************************************/
 #include <Wire.h>
-//#include <Servo.h>
+#include <Servo.h>
 #include <SPI.h>
 #include <Adafruit_PN532.h>
 
@@ -65,8 +65,8 @@ products from Adafruit!
 // Or use this line for a breakout or shield with an I2C connection:
 Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 
-// Servo object to control servo (probably on pin 9)
-//Servo myservo;
+// Set up the Servo object
+Servo myservo;
 
 void setup(void) {
   Serial.begin(115200);
@@ -89,7 +89,7 @@ void setup(void) {
   
   Serial.println("Waiting for an ISO14443A Card ...");
   
-//  myservo.attach(9);
+  myservo.attach(9);
 }
 
 
@@ -119,14 +119,13 @@ void loop(void) {
       // Now we need to try to authenticate it for read/write access
       // Try with the factory default KeyA: 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF
       Serial.println("Trying to authenticate block 4 with default KEYA value");
-//      uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }; // Works for most tags
-      uint8_t keya[6] = { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 }; // Works for the unpackaged tag
+      uint8_t keya[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }; // Works for most tags
+//      uint8_t keya[6] = { 0xD3, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 }; // Works for the unpackaged tag
 //      uint8_t keya[6] = { 0xD4, 0xF7, 0xD3, 0xF7, 0xD3, 0xF7 }; // Shouldn't work for anything
 	  
 	  // Start with block 4 (the first block of sector 1) since sector 0
 	  // contains the manufacturer data and it's probably better just
 	  // to leave it alone unless you know what you're doing
-      int blockNumber = 4;
       success = nfc.mifareclassic_AuthenticateBlock(uid, uidLength, 4, 0, keya);
 	  
       if (success)
@@ -136,59 +135,30 @@ void loop(void) {
 		
         // If you want to write something to block 4 to test with, uncomment
 		// the following line and this text should be read back in a minute
-        memcpy(data, (const uint8_t[]){ 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0 }, sizeof data);
-        success = nfc.mifareclassic_WriteDataBlock (blockNumber, data);
+        //memcpy(data, (const uint8_t[]){ 'a', 'd', 'a', 'f', 'r', 'u', 'i', 't', '.', 'c', 'o', 'm', 0, 0, 0, 0 }, sizeof data);
+        // success = nfc.mifareclassic_WriteDataBlock (4, data);
 
         // Try to read the contents of block 4
-        success = nfc.mifareclassic_ReadDataBlock(blockNumber, data);
+        success = nfc.mifareclassic_ReadDataBlock(4, data);
 		
         if (success)
         {
           // Data seems to have been read ... spit it out
-          Serial.println("Reading Block", blockNumber);fdsafadsf
-          nfc.PrintHexChar(data, 16);
-          Serial.println("");
-          
-//          myservo.write(180);
-//          delay(1000);
-//          myservo.write(0);
-          
-//          delay(1000);
-          
-//          nfc.PrintHexChar(data, 1);
-//          Serial.println(data[0] == 1 ? "Authorized" : "Not" );
-          // char strData[11] = "authorized";
-          
-          // bool flag = false;
-          // for (int i = 0; i < 11; ++i) {
-          //   if (strData[i] != data[i]) {
-          //     flag = true;
-          //   }
-          // }
-          
-          // Serial.println(flag ? "Bad" : "Good");
-          // Serial.println("");
+//          Serial.println("Reading Block 4:");
+//          nfc.PrintHexChar(data, 16);
+//          Serial.println("");
           
 //          uint8_t newData[16] = { 0x77, 0x30, 0x30, 0x33, 0x30, 0x31, 0x38, 0x39, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-//          uint8_t newData[16] = { 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-//          uint8_t newData[16] = "authorized";
-
-          // uint8_t newKey[6] = { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
           
-          // for (int i = 0; i < 6; ++i) {
-          //   data[10+i] = newKey[i];
-          // }
-          
-          // Serial.println("Writing Block 7:");
-          // nfc.PrintHexChar(data, 16);
-          // nfc.mifareclassic_WriteDataBlock(7, data);
-          // Serial.println("");
-          
-          
-          // success = nfc.mifareclassic_ReadDataBlock(7, data);
-          // Serial.println("Reading Block 7:");
-          // nfc.PrintHexChar(data, 16);
-          // Serial.println("");
+//          Serial.println("Writing Block 4:");
+//          nfc.PrintHexChar(newData, 16);
+//          nfc.mifareclassic_WriteDataBlock(4, newData);
+//          Serial.println("");
+          Serial.println("Turning the servo!");
+          myservo.write(180);
+          delay(1000);
+          myservo.write(0);
+          Serial.println("Done!");
 		  
           // Wait a bit before reading the card again
           delay(1000);
