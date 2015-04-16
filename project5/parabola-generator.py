@@ -1,5 +1,8 @@
 import math
 
+POINTS_PER_LINE = 200
+COLOR = "black"
+
 class Point():
     def __init__(self, x, y):
         self.x = x
@@ -41,11 +44,13 @@ class Line():
 # def calcDiff(point1, point2):
 #     return (point1[0] - point2[0], point1[1] - point2[1])
 
-def saveSVG(size, lines):
+def saveSVG(size, lines, lineThickness):
     padding = 10
     offset = padding / 2
 
-    with open('cube_parabola.svg', 'w') as outFile:
+    print lineThickness
+
+    with open('cubeparabola_ ' + COLOR + '_' + str(POINTS_PER_LINE) + '.svg', 'w') as outFile:
         outFile.write('''<svg version="1.1"
             baseProfile="full"
             width="''' + str(size + padding) + '''" height="''' + str(size + padding) + '''"
@@ -57,16 +62,17 @@ def saveSVG(size, lines):
                 <line
                     x1="''' + str(line.p1.x + offset) + '''" y1="''' + str(line.p1.y + offset) + '''" 
                     x2="''' + str(line.p2.x + offset) + '''" y2="''' + str(line.p2.y + offset) + '''" 
-                    stroke="purple" 
-                    stroke-width="0.025"/>
+                    stroke="''' + COLOR + '''" 
+                    stroke-width="''' + str(lineThickness) + '''"/>
                 ''')
 
         outFile.write('</svg>')
 
 def createSVG():
-    pointsPerLine = 1000
+    pointsPerLine = POINTS_PER_LINE
     xBound = 500
     yBound = xBound
+    lineThickness = 25 / float(pointsPerLine)
 
     edgeLength = xBound / 2
     yDiff = edgeLength / 2
@@ -134,7 +140,7 @@ def createSVG():
             )
 
 
-    saveSVG(xBound, lines)
+    saveSVG(xBound, lines, lineThickness)
 
 
 createSVG()
