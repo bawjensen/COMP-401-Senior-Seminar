@@ -1,6 +1,6 @@
 import math
 
-POINTS_PER_LINE = 200
+POINTS_PER_LINE = 150
 COLOR = "black"
 
 class Point():
