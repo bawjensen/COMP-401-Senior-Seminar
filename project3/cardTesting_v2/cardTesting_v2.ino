@@ -67,6 +67,7 @@ Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 
 // Set up the Servo object
 Servo myservo;
+bool state = false;
 
 void setup(void) {
   Serial.begin(115200);
@@ -89,7 +90,10 @@ void setup(void) {
   
   Serial.println("Waiting for an ISO14443A Card ...");
   
+  // Attach the servo to pin 9
   myservo.attach(9);
+  myservo.write(0);
+  Serial.println("Attached the servo to pin 9 and rotated to 0");
 }
 
 
@@ -155,10 +159,12 @@ void loop(void) {
 //          nfc.mifareclassic_WriteDataBlock(4, newData);
 //          Serial.println("");
           Serial.println("Turning the servo!");
-          myservo.write(180);
-          delay(1000);
-          myservo.write(0);
-          Serial.println("Done!");
+          if (state)
+            myservo.write(90);
+          else
+            myservo.write(0);
+            
+          state = !state;
 		  
           // Wait a bit before reading the card again
           delay(1000);
@@ -171,30 +177,6 @@ void loop(void) {
       else
       {
         Serial.println("Ooops ... authentication failed: Try another key?");
-      }
-    }
-    
-    if (uidLength == 7)
-    {
-      // We probably have a Mifare Ultralight card ...
-      Serial.println("Seems to be a Mifare Ultralight tag (7 byte UID)");
-	  
-      // Try to read the first general-purpose user page (#4)
-      Serial.println("Reading page 4");
-      uint8_t data[32];
-      success = nfc.mifareultralight_ReadPage (4, data);
-      if (success)
-      {
-        // Data seems to have been read ... spit it out
-        nfc.PrintHexChar(data, 4);
-        Serial.println("");
-		
-        // Wait a bit before reading the card again
-        delay(1000);
-      }
-      else
-      {
-        Serial.println("Ooops ... unable to read the requested page!?");
       }
     }
   }
